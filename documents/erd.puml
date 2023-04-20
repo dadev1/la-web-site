@@ -1,0 +1,239 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity agencymetas as "agencymetas" {
+  * id [ID] : bigint(20) unsigned <<auto_increment>>
+  --
+  * user_id : bigint(20) unsigned <<index>> <<FK>>
+  key : varchar(255) <<index>>
+  value : varchar(255) <<index>>
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity applications as "applications" {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  * app_name [app_name] : varchar(255)
+  * cat_id [カテゴリID] : int(11)
+  * category_tab [カテゴリタブ] : varchar(255)
+}
+
+entity comment_answers {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  * user_id [ユーザーID] : bigint(20) unsigned <<index>> <<FK>>
+  * info_id [info_id] : bigint(20) unsigned <<index>> <<FK>>
+  * comment_id [comment_id] : bigint(20) unsigned <<index>> <<FK>>
+  comment_answer : longtext
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity comments {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  * user_id [ユーザーID] : bigint(20) unsigned <<index>> <<FK>>
+  * info_id [info_id] : bigint(20) unsigned <<index>> <<FK>>
+  comment : longtext
+  created_at : timestamp
+  updated_at : tiemstamp
+}
+
+entity contacts {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  name : varchar(255)
+  * email : varchar(255)
+  phpne : varchar(255)
+  message : text
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity customer_purchases as "customer_purchases" {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  * user_id [ユーザーID] : bigint(20) unsigned <<index>> <<FK>>
+  app_url [app_url] : varchar(255)
+  app_name [app_name] : varchar(255)
+  cat_tab [cat_tab] : varchar(255)
+  period_date [period_date] : int(11)
+  capacity [capacity] : int(11)
+  capacity_unit [capacity_unit] : varchar(255)
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity customermetas {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  * user_id [ユーザーID] : bigint(20) unsigned <<index>> <<FK>>
+  key : varchar(255) <<index>>
+  value : varchar(255) <<index>>
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity dealer_customers {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  * user_id [ユーザーID] : bigint(20) unsigned <<index>> <<FK>>
+  * order_number [order_number] : varchar(255)
+  * dealer_name [dealer_name] : varchar(255)
+  * dealer_surname [dealer_surname] : varchar(255)
+  * dealer_middlename [dealer_middlename] : varchar(255)
+  * customer_name : varchar(255)
+  * customer_surname : varchar(255)
+  * customer_middle_name : varchar(255)
+  * customer_faclity : varchar(255)
+  * customer_department : varchar(255)
+  * customer_city : varchar(255)
+  * customer_prefecture : varchar(255)
+  * customer_country : varchar(255)
+  * cat_id : int(11)
+  * app_id : int(11)
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity failed_jobs {
+  * id [ID] : bigint(20) unsigned <<generated>>
+  --
+  * uuid : varchar(255) <<unique>>
+  * connection : text
+  * queue : text
+  * payload : longtext
+  * exception : longtext
+  * failed_at : timestamp
+}
+
+entity migrations {
+  * id : int(10) unsigned <<generated>>
+  --
+  * migration : varchar(255)
+  * batch : int(11)
+}
+
+entity new_informations {
+  * id : bigint(20) unsignedd <<generated>>
+  --
+  * user_id : bigint(20) unsigned <<index>> <<FK>>
+  title : longtext
+  content : longtext
+  * display_page : enum('dealer', 'customer', 'top')
+  * lang_page : enum('jp', 'en')
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity oauth_providers {
+  * id : bigint(20) unsigned <<generated>>
+  --
+  * user_id : bigint(20) unsigned <<index>> <<FK>>
+  * provider : varchar(255)
+  * provider_usre_id : varchar(255) <<index>>
+  access_token : varchar(255)
+  refresh_token : varchar(255)
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity password_resets {
+  * email : varchar(255) <<index>>
+  * token : varchar(255)
+  created_at : timestamp
+}
+
+entity subscription_items {
+  * id : bigint(20) unsigned <<generated>>
+  --
+  * subscription_id : bigint(20) unsigned <<unique>>
+  * stripe_id : varchar(255) <<unique>>
+  * stripe_project : varchar(255)
+  * stripe_price : varchar(255) <<unique>>
+  quantity : int(11)
+  created_at : timestamp
+  updated_at : tiemstamp
+}
+
+entity subscriptions {
+  * id : bigint(20) unsigned <<generated>>
+  --
+  * user_id : bigint(20) unsigned <<index>>
+  * name : varchar(255)
+  * stripe_id : varchar(255) <<unique>>
+  * stripe_status : varchar(255) <<index>>
+  stripe_price : varchar(255)
+  quantity : int(11)
+  trial_ends_at : tiemstamp
+  ends_at : timestamp
+  created_at : tiemstamp
+  updated_at : tiemstamp
+}
+
+entity transactions {
+  * id : bigint(20) unsigned <<generated>>
+  --
+  * user_id : bigint(20) unsigned <<index>>
+  * app_id : bigint(20) unsigned <<index>>
+  transaction_id : varchar(255) <<unique>>
+  transaction_status : varchar(255)
+  transaction_porice : int(11)
+  payee_email : int(11)
+  peyee_id : varchar(255)
+  payer_email : varchar(255)
+  payer_id : varchar(255)
+  crated_at : timestamp
+  updated_at : timestamp
+}
+
+entity usermetas {
+  * id : bigint(20) unsigned <<generated>>
+  --
+  * user_id : bigint(20) unsigned <<index>> <<FK>>
+  key : varchar(255) <<index>>
+  value : varchar(255) <<index>>
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity users {
+  * id : bigint(20) unsigned <<generated>>
+  --
+  * name : varchar(255)
+  nikename : varchar(255)
+  * email : varchar(255) <<unique>>
+  email_verifed_at : timestamp
+  password : varchar(255)
+  phone : bigint(20)
+  photo_url : varchar(255)
+  * role : enum('admin', 'customer', 'agency', 'user')
+  * permission : enum('approved', 'suspend', 'deny')
+  token : longtext
+  remember_token : varchar(100)
+  craeted_at : timestamp
+  updated_at : timestamp
+  stripe_id : varchar(255) <<index>>
+  pm_type : varchar(255)
+  pm_last_for : varchar(4)
+  trial_ends_at : timestamp
+}
+
+users ||--o{ agencymetas
+comments ||--o{ comment_answers
+new_informations ||--o{ comment_answers
+users ||--o{ comment_answers
+users ||--o{ comments
+new_informations ||--o{ comments
+users ||--o{ customer_purchases
+users ||--o{ customermetas
+users ||--o{ dealer_customers
+users ||--o{ new_informations
+users ||--o{ oauth_providers
+applications ||--o{ transactions
+users ||--o{ transactions
+users ||--o{ usermetas
+
+@enduml
